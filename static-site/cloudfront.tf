@@ -68,4 +68,10 @@ resource "aws_cloudfront_distribution" "s3_distribution" {
   viewer_certificate {
     cloudfront_default_certificate = true
   }
+
+  custom_error_response {
+    error_code = "403"
+    response_page_path="/"
+    response_code = "200"
+  }
 }

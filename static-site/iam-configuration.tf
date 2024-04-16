@@ -6,12 +6,14 @@ resource "aws_iam_policy" "policy" {
   
   policy = <<POLICY
 {
-  "Version": "2012-10-17",
-  "Statement": {
-    "Effect": "Allow",
-    "Action": "s3:*",
-    "Resource": "${aws_s3_bucket.bucket.arn}/"
-  }
+"Version": "2012-10-17",
+"Id": "S3ObjPolicy",
+"Statement": [{
+  "Sid": "policy",
+  "Effect": "Allow",
+  "Action": "s3:*",
+  "Resource": "${aws_s3_bucket.bucket.arn}/*"
+}]
 }
 POLICY
 }
