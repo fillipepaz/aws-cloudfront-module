@@ -24,3 +24,8 @@ variable "project" {
     type = string
     description = "Nome do projeto"
 }
+
+variable "description" {
+    type = string
+    default = "site estatico"
+}
