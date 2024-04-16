@@ -4,10 +4,18 @@ locals {
   s3_origin_id = "${var.bucketName}-S3Origin"
 }
 
+resource "aws_cloudfront_origin_access_control" "access" {
+  name                              = var.bucketName
+  description                       = "${var.bucketName} Policy"
+  origin_access_control_origin_type = "s3"
+  signing_behavior                  = "always"
+  signing_protocol                  = "sigv4"
+}
+
 resource "aws_cloudfront_distribution" "s3_distribution" {
   origin {
     domain_name              = aws_s3_bucket.bucket.bucket_regional_domain_name
-    origin_access_control_id = aws_cloudfront_origin_access_control.default.id
+    origin_access_control_id = aws_cloudfront_origin_access_control.access.id
     origin_id                = local.s3_origin_id
   }
 
