@@ -26,12 +26,13 @@ jobs:
 
       # Runs a single command using the runners shell
       - name: Configure AWS Credentials
-          uses: aws-actions/configure-aws-credentials@v3
-          with:
-              role-to-assume: arn:aws:iam::${{ values.account }}:role/bucket-${{ values.project }}-role 
-              role-session-name: GitHub_to_AWS_via_FederatedOIDC
+        uses: aws-actions/configure-aws-credentials@v3
+        with:
+            role-to-assume: arn:aws:iam::${{ values.account }}:role/bucket-${{ values.project }}-role 
+            role-session-name: GitHub_to_AWS_via_FederatedOIDC
+            aws-region: us-east-1
 
       # Runs a set of commands using the runners shell
       - name: Upload files
         run: |
-          aws s3 sync . s3://s3-${{values.project}} --exclude '.git/*' --exclude '.github/*'
+          aws s3 sync . s3://bucket-${{values.project}} --exclude '.git/*' --exclude '.github/*'
