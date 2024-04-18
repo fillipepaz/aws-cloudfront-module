@@ -24,3 +24,7 @@ module "cloudfront" {
     project="${{ values.project }}" 
     
 }
+
+output "url" {
+    value = module.cloudfront.cloudfrontDns
+  }
