@@ -19,7 +19,7 @@ terraform {
 module "cloudfront" {
     source = "git@github.com:fillipepaz/aws-cloudfront-module.git//static-site"
     accountId="${{ values.account }}"
-    repoNameAndOrg="${{ values.repository }}"
+    repoNameAndOrg="${{ values.org }}/${{ values.repository }}"
     bucketName="bucket-${{ values.project }}"
     project="${{ values.project }}" 
     
