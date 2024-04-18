@@ -10,18 +10,17 @@ terraform {
 terraform {
   backend "s3" {
     bucket = "versioning-terraform-home"
-    key    = "site-estatico/terraform.tfstate"
+    key    = "site-estatico/${{ values.environment }}/${{ values.project }}/terraform.tfstate"
     region = "us-east-1"
   }
 }
 
 
 module "cloudfront" {
-    //source = "git@github.com:fillipepaz/aws-cloudfront-module.git//static-site"
-    source = "../"
-    accountId="704151674151"
-    repoNameAndOrg="fillipepaz/example-site"
-    bucketName="demonstration-bucket-test"
-    project="PlatformEnginneeringProject" 
+    source = "git@github.com:fillipepaz/aws-cloudfront-module.git//static-site"
+    accountId="${{ values.account }}"
+    repoNameAndOrg="${{ values.repository }}"
+    bucketName="bucket-${{ values.project }}"
+    project="${{ values.project }}" 
     
 }
